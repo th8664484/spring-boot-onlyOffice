@@ -1,0 +1,51 @@
+{
+  "id": "2823977",
+  "name": "no name",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1315584",
+      "name": "电影院",
+      "font_class": "dianyingyuan",
+      "unicode": "e802",
+      "unicode_decimal": 59394
+    },
+    {
+      "icon_id": "5809799",
+      "name": "放映厅-01",
+      "font_class": "fangyingting-",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "7777700",
+      "name": "电影院",
+      "font_class": "dianyianb",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "5155402",
+      "name": "单人座位——白底",
+      "font_class": "zuowei",
+      "unicode": "e726",
+      "unicode_decimal": 59174
+    },
+    {
+      "icon_id": "5157099",
+      "name": "单人座位（已售）",
+      "font_class": "zuowei2",
+      "unicode": "e728",
+      "unicode_decimal": 59176
+    },
+    {
+      "icon_id": "14842256",
+      "name": "选中座位",
+      "font_class": "zuowei3",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    }
+  ]
+}

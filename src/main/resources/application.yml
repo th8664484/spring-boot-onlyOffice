@@ -1,0 +1,36 @@
+server:
+  port: 9090
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    content-type: text/html
+    mode: HTML5
+  #配置静态资源
+  mvc:
+    static-path-pattern: /**
+  resource:
+    static-locations: classpath:/static/
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: 123456
+
+
+mybatis-plus:
+  #  global-config:
+  #    db-config:
+  #      table-prefix: t_
+  mapper-locations:  classpath:mappers/*.xml
+
+logging:
+  level:
+    com: debug

@@ -1,0 +1,11 @@
+CREATE TABLE `on_file` (
+  `file_id` varchar(255) NOT NULL,
+  `version` varchar(255) DEFAULT NULL COMMENT '版本',
+  `created_time` varchar(255) DEFAULT NULL COMMENT '时间',
+  `user_name` varchar(255) DEFAULT NULL COMMENT '用户',
+  `user_id` varchar(255) DEFAULT NULL COMMENT '用户id',
+  `file_name` varchar(255) DEFAULT NULL,
+  `file_type` varchar(255) DEFAULT NULL,
+  `file_size` bigint(10) DEFAULT NULL,
+  PRIMARY KEY (`file_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
