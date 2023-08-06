@@ -82,7 +82,7 @@ springboot集成onlyOffice的实现。在参考网络上的资料结合自身实
 
 OnlyServiceAPI
 -----------------------------------
-- openDocument()
+### 1、openDocument()
 ```json
 打开文件时，生成配置信息
 {
@@ -144,27 +144,29 @@ OnlyServiceAPI
 "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlZGl0b3JDb25maWciOnsiY2FsbGJhY2tVcmwiOiJodHRwOi8vMTcyLjMxLjI0MC4xOjkwOTAvb25seU9mZmljZS9zYXZlIiwibGFuZyI6InpoLUNOIiwibW9kZSI6ImVkaXQiLCJ1c2VyIjp7ImlkIjoiYzdiYmE1IiwibmFtZSI6IlRvbmdIdWljN2JiYTUifSwiY3VzdG9taXphdGlvbiI6eyJhbm9ueW1vdXMiOnsicmVxdWVzdCI6ZmFsc2V9LCJhdXRvc2F2ZSI6ZmFsc2UsImNvbW1lbnRzIjpmYWxzZSwiZmVlZGJhY2siOnsidmlzaWJsZSI6ZmFsc2V9LCJmb3JjZXNhdmUiOnRydWUsImdvYmFjayI6eyJibGFuayI6ZmFsc2V9LCJoZWxwIjpmYWxzZSwiaGlkZU5vdGVzIjp0cnVlLCJoaWRlUmlnaHRNZW51Ijp0cnVlLCJsb2dvIjp7fSwibWFjcm9zIjpmYWxzZSwicmV2aWV3Ijp7fX0sInBsdWdpbnMiOnt9fSwiZG9jdW1lbnRUeXBlIjoid29yZCIsImRvY3VtZW50Ijp7ImZpbGVUeXBlIjoiZG9jeCIsInRpdGxlIjoiZmRmcy5kb2N4IiwidXJsIjoiaHR0cDovLzE3Mi4zMS4yNDAuMTo5MDkwL2Rvd25sb2FkLzA5Y2VlODc2N2RkMzQ3NjI4MGZhODY1YmFjZmFmMjEzIiwia2V5IjoiNjNmNTYwZWMwM2E5NDY1NGIxMGNkNGZkZWViZWMwNWEiLCJpbmZvIjp7ImNyZWF0ZWQiOiIyMDIzLTA4LTA1IDIxOjM4OjI1Iiwic2hhcmluZ1NldHRpbmdzIjpbeyJpc0xpbmsiOnRydWUsInBlcm1pc3Npb25zIjpbIkZ1bGwgQWNjZXNzIl0sInVzZXIiOiJUb25nSHVpYzdiYmE1In1dfSwicGVybWlzc2lvbnMiOnsiY2hhdCI6ZmFsc2UsImVkaXQiOnRydWUsInJldmlldyI6ZmFsc2V9fSwidHlwZSI6ImRlc2t0b3AifQ.HA6qS3P-czSDuScxH55tq5Bep1aN72N_F5YbXlNgJ3M"
 }
 ```
--handlerStatus()
+### 2、handlerStatus()
 ```
-保存文件时，执行此方法
+保存文件过程中，执行此方法
+参考：demo/controller/IndexController.saveFile()
+     demo/service/FileService.documentSave()
 ```
--save()
+### 3、save()
 ![](jpg/f.jpg)
 ```
 外部触发保存操作。 autosave/forcesave 这俩个参数为默认值有效
 修改文件后，没有执行回调方法。在点击保存后执行回调
 ```
--converted()
+### 4、converted()
 ```
 文件转换接口
 ```
 # 页面集成
-- html
+### html
 ```
 参考 onlyOffice.html
 style.js 中的openDocument()
 ```
-- vue
+### vue
 ```
 参考 onlyOffice.vue
 ```
