@@ -27,7 +27,7 @@ import java.nio.file.Files;
 @Service
 public class OnFileServiceImpl extends ServiceImpl<OnFileMapper, OnFile> implements OnFileService {
 
-    private String path = System.getProperty("user.dir") + "\\src\\main\\resources\\file";
+    private String path = System.getProperty("user.dir") + "\\file";
 
     @Override
     public void download(String id,String isBrowser, HttpServletResponse response) {

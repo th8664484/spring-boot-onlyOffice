@@ -7,7 +7,7 @@ oo:
   localhost-address: http://172.31.240.1:9090 #本应用的地址
   hist-num:  #历史文件数量超出 则进行删除 有需要则填写
   max-size:  #单位 MB 限制单个文件打开时的大小 默认20MB
-  cache: redis #不写默认使用内部缓存 可填redis
+  cache:  #不写默认使用内部缓存 可填redis
   # ===========================================以下配置不是必须有的=====================================================
   document:
     permissions:    #https://api.onlyoffice.com/editors/config/document/permissions  在查看和编辑时可以定义不同的功能

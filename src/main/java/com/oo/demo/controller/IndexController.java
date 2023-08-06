@@ -195,10 +195,18 @@ public class IndexController {
     @ResponseBody
     public Result<?> save(String id){
         OnFile onFile = onFileService.getById(id);
+        /**
+         * 必要步骤
+         */
+        FileUser user = new FileUser();
+        user.setId(TempUser.getUserId());
+        user.setName(TempUser.getUserName());
+        SecurityUtils.setUserSession(user);
 
         String key = onlyServiceAPI.getKey(onFile.getFileId());
         String msg = onlyServiceAPI.save(key,TempUser.getUserId());
 
+        SecurityUtils.removeUserSession();
         return Result.OK(msg);
     }
 
