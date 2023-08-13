@@ -89,12 +89,15 @@ oo:
     delimiter:  #定义从csv格式转换时用于分隔值的分隔符。
     region:     #地区 oo默认值为en-US 项目中默认值zh-CN
     documentLayout:
+      enabled: false
       drawPlaceHolders:
       drawFormHighlight:
       isPrint:
     documentRenderer:
+      enabled: false
       textAssociation:
     spreadsheetLayout:
+      enabled: false
       fitToHeight:         #设置转换区域的高度（以页数为单位）。 默认值为0。
       fitToWidth:          #设置转换区域的宽度（以页数为单位）。 默认值为0
       gridLines:           #允许是否在输出PDF文件中包含网格线。 默认值为false。
@@ -111,6 +114,7 @@ oo:
         height:
         width:
     thumbnail:  # 缩略图 定义将图像格式（bmp，gif，jpg，png）指定为输出类型时缩略图的设置。
+      enabled: false
       aspect:   #默认值为2。
       first:    #默认值为true，
       height:   #缩略图高度（以像素为单位）。 默认值为100。

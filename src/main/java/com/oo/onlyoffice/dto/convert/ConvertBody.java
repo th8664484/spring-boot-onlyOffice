@@ -5,7 +5,6 @@ import com.oo.onlyoffice.dto.convert.document.DocumentLayout;
 import com.oo.onlyoffice.dto.convert.document.DocumentRenderer;
 import com.oo.onlyoffice.dto.convert.sheet.SpreadsheetLayout;
 import com.oo.onlyoffice.dto.convert.thumbnail.Thumbnail;
-import com.oo.onlyoffice.tools.JWTUtil;
 import com.oo.onlyoffice.tools.LoadConfigUtil;
 import lombok.Data;
 
@@ -88,10 +87,27 @@ public class ConvertBody {
         setCodePage(convert.getInt("codePage"));
         setDelimiter(convert.getInt("delimiter"));
         setRegion(convert.getStr("region"));
-        setDocumentLayout(convert.get("documentLayout",DocumentLayout.class));
-        setDocumentRenderer(convert.get("documentRenderer",DocumentRenderer.class));
-        setSpreadsheetLayout(convert.get("spreadsheetLayout",SpreadsheetLayout.class));
-        setThumbnail(convert.get("thumbnail",Thumbnail.class));
+
+        //判断以下属性是否启用
+        JSONObject documentLayout = convert.getJSONObject("documentLayout");
+        if (documentLayout.getBool("enabled")){
+            setDocumentLayout(convert.get("documentLayout", DocumentLayout.class));
+        }
+
+        JSONObject documentRenderer = convert.getJSONObject("documentRenderer");
+        if (documentRenderer.getBool("enabled")){
+            setDocumentRenderer(convert.get("documentRenderer", DocumentRenderer.class));
+        }
+
+        JSONObject spreadsheetLayout = convert.getJSONObject("spreadsheetLayout");
+        if (spreadsheetLayout.getBool("enabled")){
+            setSpreadsheetLayout(convert.get("spreadsheetLayout", SpreadsheetLayout.class));
+        }
+
+        JSONObject thumbnail = convert.getJSONObject("thumbnail");
+        if (thumbnail.getBool("enabled")){
+            setThumbnail(convert.get("thumbnail",Thumbnail.class));
+        }
     }
 
     public void setAsync(Boolean async) {
