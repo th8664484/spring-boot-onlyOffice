@@ -1,10 +1,10 @@
 oo:
-  secret: mnu8wQaoxveEtDY6        #onlyoffice服务 开启了jwt校验 填写
+  secret: #mnu8wQaoxveEtDY6        #onlyoffice服务 开启了jwt校验 填写
   timeout: 300000
-  doc-service: http://172.31.240.1:8886 #onlyoffice服务的地址
+  doc-service: http://172.30.128.1:9001 #onlyoffice服务的地址
   call-back-url: /onlyOffice/save  # oo回调
-  download-file: http://172.31.240.1:9090/download/ #http://ip:prot(域名)/xxxx/download/{id}，{id}在程序中动态拼接上的
-  localhost-address: http://172.31.240.1:9090 #本应用的地址
+  download-file: http://172.30.128.1:9090/download/ #http://ip:prot(域名)/xxxx/download/{id}，{id}在程序中动态拼接上的
+  localhost-address: http://172.30.128.1:9090 #本应用的地址
   hist-num:  #历史文件数量超出 则进行删除 有需要则填写
   max-size:  #单位 MB 限制单个文件打开时的大小 默认20MB
   cache:  #不写默认使用内部缓存 可填redis
@@ -57,8 +57,8 @@ oo:
       feedback:             #定义“反馈和支持”菜单按钮的设置。默认值为 true
         visible: false
         url:
-      autosave:         #定义是否启用或禁用“自动保存”菜单选项。默认值为true 如果设置为false，则只能选择Strict协同编辑模式，因为Fast在没有自动保存的情况下无法工作。默认值为true
-      forcesave:          #在文档编辑服务中保存文档时（例如，单击“保存”按钮等）， 将文件强制保存的请求添加到回调处理程序中。 默认值为false
+      autosave: false        #定义是否启用或禁用“自动保存”菜单选项。默认值为true 如果设置为false，则只能选择Strict协同编辑模式，因为Fast在没有自动保存的情况下无法工作。默认值为true
+      forcesave: true         #在文档编辑服务中保存文档时（例如，单击“保存”按钮等）， 将文件强制保存的请求添加到回调处理程序中。 默认值为false
       comments: false        #定义是显示还是隐藏“注释”菜单按钮。如果您隐藏了“评论”按钮，则相应的评论功能将仅供查看，添加和编辑评论将不可用。 默认值为true。
       compactHeader:    # 定义其他操作按钮是显示在编辑器窗口标题的上部徽标旁边 （false） 还是显示在工具栏 （true） 中，从而使标题更紧凑。 默认值为false。
       compactToolbar:   # 定义显示的顶部工具栏类型是完整 （假） 还是紧凑 （真）。 默认值为false。

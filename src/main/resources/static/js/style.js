@@ -112,13 +112,15 @@ function openDocument(id,mode,txt){
         maxmin: true, // 允许全屏最小化
         anim: 0, // 0-6 的动画形式，-1 不开启
         content: `/onlyOffice/${mode}/${id}`,
-        btn: ['保存'],
+        btn: ['保存（autosave/forcesave是默认值时生效）'],
         btnAlign: 'c',
-        yes: function(index, layero){
+        btn1: function(index, layero, that){
             ajax('/save',{id:id},"get").then(function (res) {
                 layer.msg(res.message)
             })
+            return false
         },
+
         success: function(layero, index){
             layer.full(index); // 最大化
         },
