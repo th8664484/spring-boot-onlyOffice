@@ -9,6 +9,10 @@ springboot集成onlyOffice的实现。在参考网络上的资料结合自身实
 * 如果解决了你地方问题，请给个 **star** 
 -----------------------------------
 
+### 数据通信
+
+https://blog.xenosp.cn/2023/09/09/onlyOfficePlugins/
+
 ![](jpg/QQ截图20230805221213.jpg)
 ### 编辑
 
