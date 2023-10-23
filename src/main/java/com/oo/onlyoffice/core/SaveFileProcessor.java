@@ -20,8 +20,9 @@ public interface SaveFileProcessor {
      * @param map     文件元信息
      * @param file    文件
      * @param changes 文件变动信息
+     * @return 返回新的文件信息
      */
-     void save(Map<String, Object> map,byte[] file, byte[] changes,String key);
+    Map<String, Object> save(Map<String, Object> map,byte[] file, byte[] changes,String key);
 
     /**
      * 保存文件后进行自定义处理

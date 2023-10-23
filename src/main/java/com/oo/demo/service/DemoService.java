@@ -31,7 +31,7 @@ public class DemoService implements SaveFileProcessor {
     }
 
     @Override
-    public void save(Map<String, Object> map, byte[] file, byte[] changes, String key){
+    public Map<String, Object> save(Map<String, Object> map, byte[] file, byte[] changes, String key){
         String fileId = "";
         try {
           fileId =   onFileService.saveFile(file,map.get("fileType").toString());
@@ -51,6 +51,8 @@ public class DemoService implements SaveFileProcessor {
         onFile.setFileType(map.get("fileType").toString());
         onFileService.save(onFile);
 
+        map.put("version", version);
+        return map;
     }
 
     @Override

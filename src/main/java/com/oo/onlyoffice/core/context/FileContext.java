@@ -1,5 +1,6 @@
 package com.oo.onlyoffice.core.context;
 
+import com.alibaba.fastjson.JSON;
 import com.oo.onlyoffice.core.FileHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -61,6 +62,22 @@ public class FileContext {
             }
         }
         return null;
+    }
+
+    /**
+     * 更新文件信息
+     * @param key
+     * @param map
+     */
+    public void updateCacheFileInfo(String key,Map<String, Object> map) {
+        FileHandler fileInfo = getHandlerByKey(key);
+        if (fileInfo != null){
+            System.out.println("更新内存文件信息："+ JSON.toJSONString(map));
+            FileMetadata fileMetadata = keyUrlInfo.get(fileInfo.getHandlerName() + key);
+
+            fileMetadata.setFileInfo(map);
+            keyUrlInfo.put(fileInfo.getHandlerName() + key, fileMetadata);
+        }
     }
 
 }

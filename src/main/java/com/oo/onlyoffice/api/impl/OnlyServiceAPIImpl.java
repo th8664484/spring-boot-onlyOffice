@@ -194,9 +194,11 @@ public class OnlyServiceAPIImpl implements OnlyServiceAPI {
                 saveFileProcessor.saveBeforeInitialization(tempFile.get().getFileInfo(),fileByte,fileExtension);
 
                 // 保存文件
-                saveFileProcessor.save(tempFile.get().getFileInfo(),fileByte,changes, key);
+                Map<String, Object> map = saveFileProcessor.save(tempFile.get().getFileInfo(),fileByte,changes, key);
 
                 saveFileProcessor.saveAfterInitialization(tempFile.get().getFileInfo(),fileByte,fileExtension);
+                //更新内存文件信息
+                tempFileContext.updateCacheFileInfo(key,map);
             } catch (Exception e) {
                 throw e;
             }
