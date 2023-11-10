@@ -26,10 +26,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * only office 实现类
@@ -246,6 +243,11 @@ public class OnlyServiceAPIImpl implements OnlyServiceAPI {
 
     public void close(JSONObject jsonObject) {
         int i = iskey(jsonObject.getString("key"), null);
+        FileMetadata tempFile = getTempFile(jsonObject.getString("key"));
+        log.info("打开时间："+tempFile.getOpenTime()+"，回调时间："+ new Date().getTime());
+        if (new Date().getTime() < tempFile.getOpenTime()){
+            return;
+        }
         if (i <= 0) {
             removeTempFile(jsonObject);
             String id = (String) cache.get("getID_" + jsonObject.getString("key"));

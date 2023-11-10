@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
+import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
 
@@ -98,6 +99,7 @@ public class FileHandlerImpl implements FileHandler {
                     .fileInfo(map)
                     // 唯一标识
                     .key(key)
+                    .openTime(new Date().getTime())
                     .build();
             if (mode.equals("edit")) {
                 FileContext.keyUrlInfo.put(getHandlerName() + key, tempFileInfo);

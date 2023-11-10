@@ -102,7 +102,7 @@ layui.use(['element', 'layer', 'util', 'carousel', 'form', 'table', 'upload', 'l
 });
 
 function openDocument(id,mode,txt){
-    layer.open({
+    var index =  layer.open({
         type: 2, // page 层类型
         offset: 'lb',
         area: ['150px', '50px'],
@@ -124,9 +124,10 @@ function openDocument(id,mode,txt){
         success: function(layero, index){
             layer.full(index); // 最大化
         },
-        cancel: function(index, layero, that){
+        cancel: function(index, layero){
             // 获取 iframe 中 body 元素的 jQuery 对象
-            layer.iframeSrc(index, '');
+            console.log(index,layero)
+            layer.close(index);
         }
     });
 }

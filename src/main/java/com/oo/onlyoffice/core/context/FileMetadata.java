@@ -39,5 +39,10 @@ public class FileMetadata {
      */
     private Map<String,Object> fileInfo;
 
+    /**
+     * 打开时间
+     */
+
+    private long openTime;
 
 }
