@@ -283,8 +283,8 @@ springboot集成onlyOffice的实现。在参考网络上的资料结合自身实
 
 - [x] 修复关闭文件后快速再次打开该文件后，保存时报错的bug 2023/11/10
 - [x] 修复内存文件信息在保存后没有修改的bug 2023/10/23
-- [x] 实现和编辑器的数据通信 2023/9/9
-  https://blog.xenosp.cn/2023/09/09/onlyOfficePlugins/
+- [x] 实现和编辑器的数据通信 2023/9/9 (更新链接)
+  https://blog.xenosp.cn/posts/87468caf/
 - [x] 修复文件转pdf时只有第一页的bug 2023/8/13
 
 
