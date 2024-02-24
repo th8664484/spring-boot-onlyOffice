@@ -242,12 +242,21 @@ public class OnlyServiceAPIImpl implements OnlyServiceAPI {
     }
 
     public void close(JSONObject jsonObject) {
-        int i = iskey(jsonObject.getString("key"), null);
+        // 判断临时信息是否存在
         FileMetadata tempFile = getTempFile(jsonObject.getString("key"));
+        if (tempFile == null){
+            return;
+        }
+
+        //判断 删除时间 是否大于 文件打开时间
+        //如果 删除时间 小于 文件打开时间 不执行删除
         log.info("打开时间："+tempFile.getOpenTime()+"，回调时间："+ new Date().getTime());
         if (new Date().getTime() < tempFile.getOpenTime()){
             return;
         }
+        // 减少文档的使用人数
+        int i = iskey(jsonObject.getString("key"), null);
+        //如果没有人使用当前文档，清空临时信息
         if (i <= 0) {
             removeTempFile(jsonObject);
             String id = (String) cache.get("getID_" + jsonObject.getString("key"));
@@ -266,11 +275,11 @@ public class OnlyServiceAPIImpl implements OnlyServiceAPI {
     public int iskey(String key, Integer users) {
         int i = 0;
         if (users != null) {
-            cache.set(key, users, 60 * 60 * 6);
+            cache.set(key, users);
             i = users;
         } else {
             i = ((int)cache.get(key)) - 1;
-            cache.set(key, i, 60 * 60 * 6);
+            cache.set(key, (i>=0 ? i : 0));
         }
         log.info("[" + key + "]文档使用人数：" + i);
         return i;

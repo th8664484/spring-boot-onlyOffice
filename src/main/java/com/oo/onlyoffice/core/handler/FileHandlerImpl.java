@@ -68,14 +68,14 @@ public class FileHandlerImpl implements FileHandler {
                         key = (String) cache.get("collaborativeEditing_" + id);
                     } else {
                         key = IdUtil.simpleUUID();
-                        cache.set("collaborativeEditing_" + id, key, time);
-                        cache.set("getID_" + key, id, time);
+                        cache.set("collaborativeEditing_" + id, key);
+                        cache.set("getID_" + key, id);
                     }
                 } else {
                     key = IdUtil.simpleUUID();
                     FileUser user = SecurityUtils.getUserSession();
-                    cache.set(user.getId() + "_" + id, key, time);
-                    cache.set("getID_" + key, id, time);
+                    cache.set(user.getId() + "_" + id, key);
+                    cache.set("getID_" + key, id);
                 }
             } else {//查看模式
                 key = id;
