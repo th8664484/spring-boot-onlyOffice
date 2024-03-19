@@ -40,7 +40,6 @@
     var obj = {
         //获取内容
         getText: function (){
-            console.log(docEditor)
             docEditor.serviceCommand("getText", {});
         },
         //添加内容
@@ -69,6 +68,7 @@
                         console.log("x:"+data.x)
                         console.log("y:"+data.y)
                     }
+                    layer.alert("接收结果："+res.data);
                 }
             }
         },

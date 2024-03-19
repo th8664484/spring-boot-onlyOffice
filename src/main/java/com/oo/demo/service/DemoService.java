@@ -1,8 +1,8 @@
 package com.oo.demo.service;
 
+import com.office.config.oo.OnlyProperties;
+import com.office.core.SaveFileProcessor;
 import com.oo.demo.entity.OnFile;
-import com.oo.onlyoffice.config.OnlyProperties;
-import com.oo.onlyoffice.core.SaveFileProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ import java.util.Map;
 @Service
 public class DemoService implements SaveFileProcessor {
 
-    @Autowired
+//    @Autowired
     private OnlyProperties onlyProperties;
     @Autowired
     private OnFileService onFileService;
@@ -57,6 +57,11 @@ public class DemoService implements SaveFileProcessor {
 
     @Override
     public void saveAfterInitialization(Map<String, Object> map, byte[] bytes, String fileExtension) throws Exception {
+
+    }
+
+    @Override
+    public void remove(Map<String, Object> map) {
 
     }
 

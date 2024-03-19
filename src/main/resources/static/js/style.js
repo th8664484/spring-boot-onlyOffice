@@ -67,7 +67,7 @@ layui.use(['element', 'layer', 'util', 'carousel', 'form', 'table', 'upload', 'l
         } else if (obj.event == 'download') {
             download("/download/" + data.fileId+"?isBrowser=true")
         } else if(obj.event == 'converted'){
-            download( `/converted?id=${data.fileId}&suffix=pdf`)
+            download( "/converted?id=" + data.fileId+"&suffix=pdf")
         } else if(obj.event == 'edit'){
             // window.open('/onlyOffice/edit/'+data.id);
             openDocument(data.fileId,'edit','在线编辑')

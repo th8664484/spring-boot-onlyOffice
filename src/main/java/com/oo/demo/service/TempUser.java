@@ -16,25 +16,34 @@ import java.util.*;
  */
 public class TempUser {
     private static Logger logger = LoggerFactory.getLogger(TempUser.class);
-    private static List<Map<String,String>> cache1 = new ArrayList<>();
-    private static Integer index;
+    private static List<TempUser> cache1 = new ArrayList<>();
+    private String id;
+    private String name;
 
     static {
         for (int i = 0; i < 10; i++) {
-            Map<String,String> map = new HashMap<>();
-            map.put("userId", IdUtil.simpleUUID().substring(0,6));
-            map.put("userName","TongHui"+map.get("userId"));
-            cache1.add(map);
+            String userId = IdUtil.simpleUUID().substring(0,6);
+            cache1.add(new TempUser(userId,"TongHui"+userId));
         }
         logger.info("用户初始完毕");
+    }
+
+    public  TempUser(String id ,String name){
+        this.id = id;
+        this.name = name;
+    }
+
+    public static TempUser getUser(){
         Random random = new Random();
-        index = random.nextInt(10);
-        logger.info("获取用户完毕"+index);
+        int index = random.nextInt(10);
+        return cache1.get(index);
     }
-    public static String getUserName(){
-        return cache1.get(index).get("userName");
+
+    public String getUserId() {
+        return id;
     }
-    public static String getUserId(){
-        return cache1.get(index).get("userId");
+
+    public String getUserName() {
+        return name;
     }
 }

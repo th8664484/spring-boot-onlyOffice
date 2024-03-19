@@ -1,7 +1,9 @@
 package com.oo.onlyoffice.api.impl;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.oo.onlyoffice.api.OnlyServiceAPI;
 import com.oo.onlyoffice.config.OnlyProperties;
 import com.oo.onlyoffice.core.Cache;
@@ -35,17 +37,17 @@ import java.util.*;
 @Slf4j
 public class OnlyServiceAPIImpl implements OnlyServiceAPI {
 
-    @Autowired
+//    @Autowired
     private OnlyOfficeConfigFactory onlyOfficeConfigFactory;
-    @Autowired
+//    @Autowired
     private SaveFileProcessor saveFileProcessor;
-    @Autowired
+//    @Autowired
     private OnlyProperties onlyProperties;
-    @Autowired
+//    @Autowired
     private FileContext tempFileContext;
-    @Autowired
+//    @Autowired
     private FileHandler fileHandler;
-    @Autowired
+//    @Autowired
     private Cache cache;
 
     private String EDIT = "edit";
@@ -85,9 +87,9 @@ public class OnlyServiceAPIImpl implements OnlyServiceAPI {
 
     private Map documentEdit(Map<String, Object> map,boolean collaborativeEditing)  {
         FileConfig fileConfigDTO = openEditConfig(map, "edit", collaborativeEditing);
-        String json = JSON.toJSONString(fileConfigDTO);
+        String json = JSONUtil.toJsonStr(fileConfigDTO);
 
-        Map<String, Object> config = JSON.parseObject(json, Map.class);
+        Map<String, Object> config = JSONUtil.toBean(json, Map.class);
 
 
         return config;
@@ -96,8 +98,8 @@ public class OnlyServiceAPIImpl implements OnlyServiceAPI {
 
     private Map documentView(Map<String, Object> map)  {
         FileConfig fileConfigDTO = openEditConfig(map, "view", false);
-        String json = JSON.toJSONString(fileConfigDTO);
-        Map<String, Object> config = JSON.parseObject(json, Map.class);
+        String json = JSONUtil.toJsonStr(fileConfigDTO);
+        Map<String, Object> config = JSONUtil.toBean(json, Map.class);
 
         return config;
     }
@@ -161,14 +163,14 @@ public class OnlyServiceAPIImpl implements OnlyServiceAPI {
     @Override
     public void handlerStatus(JSONObject jsonObject) throws Exception {
         log.info("开始下载编辑器文件");
-        int status = jsonObject.getIntValue("status");
+        int status = jsonObject.getInt("status");
         log.info("status[{}]:{}", status, jsonObject);
         String key = (String) jsonObject.get("key");
 
         FileHandler tempFileHandler = tempFileContext.getHandlerByKey(key);
         if (Objects.nonNull(tempFileHandler)) {
-            String url = jsonObject.getString("url");
-            String changesurl = jsonObject.getString("changesurl");
+            String url = jsonObject.getStr("url");
+            String changesurl = jsonObject.getStr("changesurl");
             log.info("编辑后的文档下载路径url:" + url);
             log.info("文件变动信息文件url:" + changesurl);
             // 下载修改后文件
@@ -243,7 +245,7 @@ public class OnlyServiceAPIImpl implements OnlyServiceAPI {
 
     public void close(JSONObject jsonObject) {
         // 判断临时信息是否存在
-        FileMetadata tempFile = getTempFile(jsonObject.getString("key"));
+        FileMetadata tempFile = getTempFile(jsonObject.getStr("key"));
         if (tempFile == null){
             return;
         }
@@ -255,11 +257,11 @@ public class OnlyServiceAPIImpl implements OnlyServiceAPI {
             return;
         }
         // 减少文档的使用人数
-        int i = iskey(jsonObject.getString("key"), null);
+        int i = iskey(jsonObject.getStr("key"), null);
         //如果没有人使用当前文档，清空临时信息
         if (i <= 0) {
             removeTempFile(jsonObject);
-            String id = (String) cache.get("getID_" + jsonObject.getString("key"));
+            String id = (String) cache.get("getID_" + jsonObject.getStr("key"));
             cache.remove("getID_" + id);
             cache.remove("collaborativeEditing_" + id);
             cache.remove(id);
@@ -312,7 +314,7 @@ public class OnlyServiceAPIImpl implements OnlyServiceAPI {
             String token =  JWTUtil.createToken(map,onlyProperties.getSecret());
             map.put("token",token);
         }
-        String bodyString = JSON.toJSONString(map);
+        String bodyString = JSONUtil.toJsonStr(map);
         log.info("forcesave:"+bodyString);
         byte[] bodyByte = bodyString.getBytes(StandardCharsets.UTF_8);
         try {
@@ -339,8 +341,8 @@ public class OnlyServiceAPIImpl implements OnlyServiceAPI {
             /**将流转为字符串*/
             String jsonString = FileUtil.ConvertStreamToString(stream);
             connection.disconnect();
-            JSONObject jsonObj = JSONObject.parseObject(jsonString);
-            log.debug(jsonObj.toJSONString());
+            JSONObject jsonObj = JSONUtil.toBean(jsonString,JSONObject.class);
+            log.debug(jsonObj.toString());
             Object error = jsonObj.get("error");
             String msg = "";
             if (error != null) {
@@ -420,12 +422,12 @@ public class OnlyServiceAPIImpl implements OnlyServiceAPI {
         String fileUrl =  onlyProperties.getDownloadFile()+key;
 
         ConvertBody body = new ConvertBody(filetype, DocumentKey.SnowflakeId(), outputtype, fileUrl, title,password);
-        String bodyString = JSON.toJSONString(body);
+        String bodyString = JSONUtil.toJsonStr(body);
 
         if (null != onlyProperties.getSecret()){
-            String token =  JWTUtil.createToken(JSON.parseObject(bodyString,Map.class),onlyProperties.getSecret());
+            String token =  JWTUtil.createToken(JSONUtil.toBean(bodyString,Map.class),onlyProperties.getSecret());
             body.setToken(token);
-            bodyString = JSON.toJSONString(body);
+            bodyString = JSONUtil.toJsonStr(body);
         }
 
         log.debug(bodyString);
@@ -456,8 +458,8 @@ public class OnlyServiceAPIImpl implements OnlyServiceAPI {
 
             connection.disconnect();
 
-            JSONObject jsonObj = JSONObject.parseObject(jsonString);
-            log.debug(jsonObj.toJSONString());
+            JSONObject jsonObj = JSONUtil.toBean(jsonString,JSONObject.class);
+            log.debug(jsonObj.toString());
             /**
              * {
              *     "endConvert":true，//转换是否完成

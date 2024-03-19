@@ -1,19 +1,18 @@
 package com.oo.demo.controller;
 
-import cn.hutool.core.util.IdUtil;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.office.config.oo.edit.FileUser;
+import com.office.office.oo.OnlyOfficeAPI;
+import com.office.tools.FileUtil;
+import com.office.tools.SecurityUtils;
 import com.oo.demo.entity.OnFile;
 import com.oo.demo.entity.Result;
 import com.oo.demo.service.FileService;
 import com.oo.demo.service.OnFileService;
 import com.oo.demo.service.TempUser;
-import com.oo.onlyoffice.api.OnlyServiceAPI;
-import com.oo.onlyoffice.dto.edit.FileUser;
-import com.oo.onlyoffice.tools.FileUtil;
-import com.oo.onlyoffice.tools.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,8 +24,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.*;
 
@@ -48,8 +45,12 @@ public class IndexController {
     private OnFileService onFileService;
     @Autowired
     private FileService fileService;
+
+//    @Autowired
+//    private OnlyServiceAPI onlyServiceAPI;
+
     @Autowired
-    private OnlyServiceAPI onlyServiceAPI;
+    private OnlyOfficeAPI onlyOfficeAPI;
 
 
     @RequestMapping("/")
@@ -121,14 +122,14 @@ public class IndexController {
     public ModelAndView openDocument(@PathVariable String mode,@PathVariable String id, Model model) {//@RequestParam("url") String url,
         log.info("only office key:" + id);
         OnFile onFile = onFileService.getById(id);
-
+        TempUser tempUser = TempUser.getUser();
 
         /**
          * 必要步骤
          */
         FileUser user = new FileUser();
-        user.setId(TempUser.getUserId());
-        user.setName(TempUser.getUserName());
+        user.setId(tempUser.getUserId());
+        user.setName(tempUser.getUserName());
         SecurityUtils.setUserSession(user);
         /**
          * 必要步骤
@@ -140,11 +141,11 @@ public class IndexController {
         map.put("fileSize",onFile.getFileSize());
         map.put("version",onFile.getVersion());
 
-        Map config = onlyServiceAPI.openDocument(map, mode, false);
+        Map config = onlyOfficeAPI.openDocument(map, mode, true,null);
 
         SecurityUtils.removeUserSession();
 
-        String s = JSON.toJSONString(config);
+        String s = JSONUtil.toJsonStr(config);
         log.info("only office config:" + s);
         model.addAllAttributes(config);
         return new ModelAndView("onlyOffice");
@@ -173,7 +174,7 @@ public class IndexController {
             // 获取传输的json数据
             Scanner scanner = new Scanner(request.getInputStream()).useDelimiter("\\A");
             String body = scanner.hasNext() ? scanner.next() : "";
-            JSONObject jsonObject = JSONObject.parseObject(body);
+            JSONObject jsonObject = JSONUtil.toBean(body,JSONObject.class);
             log.info("{}", jsonObject);
 
             fileService.documentSave(jsonObject);
@@ -195,16 +196,18 @@ public class IndexController {
     @ResponseBody
     public Result<?> save(String id){
         OnFile onFile = onFileService.getById(id);
+        TempUser tempUser = TempUser.getUser();
+
         /**
          * 必要步骤
          */
         FileUser user = new FileUser();
-        user.setId(TempUser.getUserId());
-        user.setName(TempUser.getUserName());
+        user.setId(tempUser.getUserId());
+        user.setName(tempUser.getUserName());
         SecurityUtils.setUserSession(user);
 
-        String key = onlyServiceAPI.getKey(onFile.getFileId());
-        String msg = onlyServiceAPI.save(key,TempUser.getUserId());
+        String key = onlyOfficeAPI.getKey(onFile.getFileId());
+        String msg = onlyOfficeAPI.save(key,tempUser.getUserId());
 
         SecurityUtils.removeUserSession();
         return Result.OK(msg);
@@ -216,7 +219,7 @@ public class IndexController {
         try {
             OnFile onFile = onFileService.getById(id);
             String title = onFile.getFileName().replace(onFile.getFileType(),suffix);
-            String path = onlyServiceAPI.converted(onFile.getFileType(),onFile.getFileId(),suffix,title,null);
+            String path = onlyOfficeAPI.converted(onFile.getFileType(),onFile.getFileId(),suffix,title,null);
 
             FileUtil.downloadAttachment(path,title,response);
 

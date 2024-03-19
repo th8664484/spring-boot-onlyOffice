@@ -29,7 +29,7 @@ import java.util.*;
 @Component
 public class FileConfigFactory implements OnlyOfficeConfigFactory {
 
-    @Autowired
+//    @Autowired
     private OnlyProperties onlyProperties;
 
     /**

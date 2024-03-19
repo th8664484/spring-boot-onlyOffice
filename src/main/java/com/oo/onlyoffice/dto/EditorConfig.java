@@ -1,6 +1,5 @@
 package com.oo.onlyoffice.dto;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.oo.onlyoffice.dto.edit.FileCustomization;
 import com.oo.onlyoffice.dto.edit.FileEmbedded;
 import com.oo.onlyoffice.dto.edit.FileRecent;
@@ -61,7 +60,6 @@ public class EditorConfig implements Serializable {
     /**
      * 自定义信息
      */
-    @JSONField(name = "customization")
     private FileCustomization customization;
 
     /**
@@ -69,7 +67,6 @@ public class EditorConfig implements Serializable {
      */
     private Object coEditing;
 
-    @JSONField(name = "embedded")
     private FileEmbedded embedded;
 
     /**

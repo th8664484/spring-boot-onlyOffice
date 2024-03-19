@@ -29,9 +29,9 @@ import java.util.Optional;
 public class FileHandlerImpl implements FileHandler {
 
 
-    @Autowired
+//    @Autowired
     private OnlyProperties onlyProperties;
-    @Autowired
+//    @Autowired
     private Cache cache;
 
     private int time = 60*30;

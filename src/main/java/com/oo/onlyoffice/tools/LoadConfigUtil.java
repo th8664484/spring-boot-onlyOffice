@@ -32,7 +32,7 @@ public class LoadConfigUtil {
     private static String YML_NAME = "onlyOffice.yml";
 
     static {
-            loadYml();
+//            loadYml();
     }
 
     private static void loadYml(){

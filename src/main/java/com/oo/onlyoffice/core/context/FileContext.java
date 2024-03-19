@@ -1,6 +1,6 @@
 package com.oo.onlyoffice.core.context;
 
-import com.alibaba.fastjson.JSON;
+import cn.hutool.json.JSONUtil;
 import com.oo.onlyoffice.core.FileHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -72,7 +72,7 @@ public class FileContext {
     public void updateCacheFileInfo(String key,Map<String, Object> map) {
         FileHandler fileInfo = getHandlerByKey(key);
         if (fileInfo != null){
-            System.out.println("更新内存文件信息："+ JSON.toJSONString(map));
+            System.out.println("更新内存文件信息："+ JSONUtil.toJsonStr(map));
             FileMetadata fileMetadata = keyUrlInfo.get(fileInfo.getHandlerName() + key);
 
             fileMetadata.setFileInfo(map);

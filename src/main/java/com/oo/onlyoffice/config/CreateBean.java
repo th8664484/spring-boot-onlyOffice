@@ -27,11 +27,11 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * @Version: 1.0
  */
 @Slf4j
-@Configuration
+//@Configuration
 public class CreateBean {
 
 
-    @Bean
+//    @Bean
     public OnlyProperties getOnlyProperties(){
         OnlyProperties onlyProperties = new OnlyProperties();
         JSONObject map = LoadConfigUtil.getMap();
@@ -46,7 +46,7 @@ public class CreateBean {
         return onlyProperties;
     }
 
-    @Bean
+//    @Bean
     public Cache getCache(RedisTemplate<String, Object> redisTemplate){
         JSONObject map = LoadConfigUtil.getMap();
         String c = map.getStr("cache");
@@ -62,7 +62,7 @@ public class CreateBean {
      * @param lettuceConnectionFactory
      * @return
      */
-    @Bean
+//    @Bean
     public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory) {
         log.info(" --- redis config init --- ");
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = jacksonSerializer();

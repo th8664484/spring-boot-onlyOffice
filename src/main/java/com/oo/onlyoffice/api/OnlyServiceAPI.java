@@ -1,6 +1,6 @@
 package com.oo.onlyoffice.api;
 
-import com.alibaba.fastjson.JSONObject;
+import cn.hutool.json.JSONObject;
 import com.oo.onlyoffice.core.context.FileMetadata;
 
 

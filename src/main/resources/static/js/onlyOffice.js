@@ -85,7 +85,31 @@ const onOutdatedVersion = function (event) {
  * 如果未声明该方法和onRequestHistoryData方法，则不会显示“版本历史记录”按钮。
  */
 const onRequestHistory = function (){
-    docEditor.refreshHistory();
+    docEditor.refreshHistory({
+        "currentVersion": 2,
+        "history": [
+            {
+                "created": "2010-07-06 10:13 AM",
+                "key": "af86C7e71Ca8",
+                "user": {
+                    "id": "F89d8069ba2b",
+                    "name": "Kate Cage"
+                },
+                "version": 1
+            },
+            {
+                "changes": "",
+                "created": "2010-07-07 3:46 PM",
+                "key": "Khirz6zTPdfd7",
+                "serverVersion": "",
+                "user": {
+                    "id": "78e1e841",
+                    "name": "John Smith"
+                },
+                "version": 2
+            },
+        ]
+    });
 }
 /**
  * 当用户尝试通过单击“关闭历史记录”按钮从查看文档版本历史记录返回到文档时调用的函数。
