@@ -53,7 +53,7 @@ office:
     call-back-url: # oo回调接口
 ```
 
-!> **wps** 和 **oo** 配置二选一即可 
+!> **wps** 和 **oo （不要忘了 onlyOffice.yml文件）** 配置二选一即可 
 
 ## 更新记录
 
