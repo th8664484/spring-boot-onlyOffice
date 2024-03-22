@@ -60,9 +60,5 @@ public class DemoService implements SaveFileProcessor {
 
     }
 
-    @Override
-    public void remove(Map<String, Object> map) {
-
-    }
 
 }
