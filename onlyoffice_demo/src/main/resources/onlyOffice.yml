@@ -1,0 +1,112 @@
+oo:
+  # ===========================================以下配置不是必须有的=====================================================
+  document:
+    permissions:    #https://api.onlyoffice.com/editors/config/document/permissions  在查看和编辑时可以定义不同的功能
+      edit:
+        chat: false       #定义是否在文档中启用聊天功能。 如果聊天权限设置为true，将显示聊天菜单按钮。 默认值为true。
+        comment:     #定义文档是否可以被注释。默认为true
+        copy:        #定义是否可以将内容复制到剪贴板。
+        deleteCommentAuthorOnly: #定义用户是否只能删除其注释。 默认值为false。
+        download:         #是否允许下载 默认为true
+        editCommentAuthorOnly: #定义用户是否只能编辑其注释。 默认值为false。
+        fillForms:        #是否可以填写表单 默认true
+        modifyContentControl: # 定义是否可以更改内容控件设置。 仅当mode参数设置为编辑时，内容控件修改才可用于文档编辑器。 默认值为true。
+        modifyFilter:           #定义筛选器是可以全局应用（true）影响所有其他用户，还是本地应用（false），即仅适用于当前用户。默认值为true。
+        print:               #定义文档是否可以打印。 如果打印权限设置为“false”打印菜单选项将不在“文件”菜单中。 默认值为true。
+        protect:             #定义是显示工具栏上的“保护”选项卡和左侧菜单中的“保护”按钮（真）还是隐藏（假）。 默认值为true。
+        review: false             #定义文档是否可以被审核。默认：true
+      view:
+        chat: false       #定义是否在文档中启用聊天功能。 如果聊天权限设置为true，将显示聊天菜单按钮。 默认值为true。
+        comment:     #定义文档是否可以被注释。默认为true
+        copy:        #定义是否可以将内容复制到剪贴板。
+        deleteCommentAuthorOnly: #定义用户是否只能删除其注释。 默认值为false。
+        download:         #是否允许下载 默认为true
+        editCommentAuthorOnly: #定义用户是否只能编辑其注释。 默认值为false。
+        fillForms:        #是否可以填写表单 默认true
+        modifyContentControl: # 定义是否可以更改内容控件设置。 仅当mode参数设置为编辑时，内容控件修改才可用于文档编辑器。 默认值为true。
+        modifyFilter:           #定义筛选器是可以全局应用（true）影响所有其他用户，还是本地应用（false），即仅适用于当前用户。默认值为true。
+        print:               #定义文档是否可以打印。 如果打印权限设置为“false”打印菜单选项将不在“文件”菜单中。 默认值为true。
+        protect:             #定义是显示工具栏上的“保护”选项卡和左侧菜单中的“保护”按钮（真）还是隐藏（假）。 默认值为true。
+        review:  false            #定义文档是否可以被审核。默认：true
+  editor:
+    customization:      #https://api.onlyoffice.com/editors/config/editor/customization
+      anonymous:  #添加对匿名名称的请求
+        request: false #定义请求是否发送。 默认值为 true
+        label:    #添加到用户名的后缀。默认值为 Guest
+      goback:     #定义“打开文件位置”菜单按钮和右上角按钮的设置。
+        blank: false   #在新的浏览器选项卡/窗口中打开网站（如果值设置为true）或当前选项卡（如果值设置为false） 默认值为 true
+        requestClose:  #定义如果单击“打开文件位置”按钮，则会调用 events.onRequestClose事件，而不是打开浏览器选项卡或窗口。默认值 false
+        text:          #提示信息 默认 转到文档
+        url:           #单击“打开文件位置”菜单按钮时将打开的网站地址的绝对URL
+      logo:        #onlyoffice付费用户生效
+        image:       #图像文件的路径
+        imageDark:   #深色主题的图像文件的路径
+        url:         #点击徽标图像时将使用的绝对URL
+      review:
+        hideReviewDisplay:     #定义在“协作”选项卡上显示还是隐藏“显示模式”按钮。 默认值为false
+        hoverMode:             #定义审阅显示模式：通过悬停更改在工具提示中显示审阅 （true） 或通过单击更改（假）在气球中。 默认值为false。
+      feedback:             #定义“反馈和支持”菜单按钮的设置。默认值为 true
+        visible: false
+        url:
+      autosave: false        #定义是否启用或禁用“自动保存”菜单选项。默认值为true 如果设置为false，则只能选择Strict协同编辑模式，因为Fast在没有自动保存的情况下无法工作。默认值为true
+      forcesave: true         #在文档编辑服务中保存文档时（例如，单击“保存”按钮等）， 将文件强制保存的请求添加到回调处理程序中。 默认值为false
+      comments: false        #定义是显示还是隐藏“注释”菜单按钮。如果您隐藏了“评论”按钮，则相应的评论功能将仅供查看，添加和编辑评论将不可用。 默认值为true。
+      compactHeader:    # 定义其他操作按钮是显示在编辑器窗口标题的上部徽标旁边 （false） 还是显示在工具栏 （true） 中，从而使标题更紧凑。 默认值为false。
+      compactToolbar:   # 定义显示的顶部工具栏类型是完整 （假） 还是紧凑 （真）。 默认值为false。
+      compatibleFeatures:  #定义仅与 OOXML 格式兼容的功能的使用。 例如，不要对整个文档使用注释。 默认值为false。
+      features:             #拼写检查 - 定义在加载编辑器时是自动打开还是关闭拼写检查器。 如果此参数是布尔值，则将其设置为初始拼写检查器值，并且不会隐藏拼写检查器设置。默认值为 true
+      help: false               #定义是显示还是隐藏“帮助”菜单按钮。 默认值为true。
+      hideNotes: true          #定义在首次加载时是显示还是隐藏注释面板。 默认值为false
+      hideRightMenu: true      #定义首次加载时是显示还是隐藏右侧菜单。 默认值为false。
+      hideRulers:          # 定义是显示还是隐藏编辑器标尺。 此参数可用于文档和演示文稿编辑器。文档编辑器的默认值为false，演示文稿的默认值为true。
+      macros: false             #定义在编辑器打开时是否自动运行文档宏。 默认值为true。false值对用户隐藏宏设置。
+      macrosMode:          #宏提示 warn 默认  警告宏并请求运行它们的权限 / enable 自动运行所有宏/ disable不运行宏
+      mentionShare:        #定义在注释中提及后描述事件的提示。true，则提示指示用户将收到通知并访问文档。 false，则提示指示用户将仅收到提及通知。 默认值为true。只有在设置了onRequestSendNotify事件的情况下，它才可用于注释。
+      plugins:             #定义插件是否启动并可用。 默认值为true。
+      toolbarHideFileName:  #定义文档标题是在顶部工具栏上可见 （假） 还是隐藏 （真）。 默认值为false。
+      toolbarNoTabs:         #定义顶部工具栏选项卡是清晰显示 （false） 还是仅突出显示以查看选择了哪个选项卡 （true）。 默认值为false。
+      uiTheme:               #定义编辑器主题设置。 theme-light, theme-classic-light, theme-dark, theme-contrast-dark 默认 theme-dark
+      unit:                  #定义标尺和对话框中使用的度量单位。 可以采用以下值：cm - 厘米 /pt - 像素点/inch - 英寸. 默认值为厘米 （cm）。
+      zoom:                 # 定义以百分比度量的文档显示缩放值。 可以采用大于0 的值。默认值为100。对于文本文档和演示文稿，可以将此参数设置为 -1（使文档适合页面选项）或 to-2（使文档页面宽度适合编辑器页面）。
+    plugins:            #https://api.onlyoffice.com/editors/config/editor/plugins 插件配置
+      autostart:        #数组  asc.{FFE1F462-1EA2-4391-990D-4CC84940B754}
+        -
+      pluginsData:      #数组
+        -
+
+  convert:  #https://api.onlyoffice.com/editors/conversionapi
+    async:  #定义转换请求类型：异步或非异步。默认值为false。
+    codePage:  #定义从csv或txt格式转换时的文件编码。
+    delimiter:  #定义从csv格式转换时用于分隔值的分隔符。
+    region:     #地区 oo默认值为en-US 项目中默认值zh-CN
+    documentLayout:
+      enabled: false
+      drawPlaceHolders:
+      drawFormHighlight:
+      isPrint:
+    documentRenderer:
+      enabled: false
+      textAssociation:
+    spreadsheetLayout:
+      enabled: false
+      fitToHeight:         #设置转换区域的高度（以页数为单位）。 默认值为0。
+      fitToWidth:          #设置转换区域的宽度（以页数为单位）。 默认值为0
+      gridLines:           #允许是否在输出PDF文件中包含网格线。 默认值为false。
+      headings:            #允许是否包含输出PDF文件的标题。 默认值为false。
+      ignorePrintArea:     #确定是否忽略为电子表格文件选择的打印区域。 默认值为true。
+      orientation:         #设置输出 PDF 文件的方向。 可能是landscape, portrait.  默认值为纵向(portrait)
+      scale:
+      margins: #设置输出 PDF 文件的边距 默认 19.1mm 默认 17.8mm 默认 17.8mm   默认 19.1mm
+        bottom:
+        left:
+        right:
+        top:
+      pageSize: #设置输出 PDF 文件的页面高度。默认 297mm 页面宽度。默认 210mm
+        height:
+        width:
+    thumbnail:  # 缩略图 定义将图像格式（bmp，gif，jpg，png）指定为输出类型时缩略图的设置。
+      enabled: false
+      aspect:   #默认值为2。
+      first:    #默认值为true，
+      height:   #缩略图高度（以像素为单位）。 默认值为100。
+      width:    #缩略图宽度（以像素为单位）。 默认值为100。

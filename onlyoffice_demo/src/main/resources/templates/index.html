@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.w3.org/1999/xhtml">
+<head th:replace="/_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>文件管理</title>
+    <link href="../static/layui/css/layui.css" rel="stylesheet"/>
+    <script src="../static/layui/layui.js" type="text/javascript"></script>
+</head>
+<script type="text/javascript" th:src="@{/js/self-ajax.js}"></script>
+
+<body>
+<div style="padding: 10px">
+    <div class="layui-upload" >
+        <button type="button" class="layui-btn demo-class-accept" lay-options="{accept: 'file'}">
+            <i class="layui-icon layui-icon-upload"></i>
+            上传文件
+        </button>
+    </div>
+</div>
+<div class="layui-card">
+    <div class="layui-card-header"></div>
+    <div class="layui-card-body">
+        <p>不要以127.0.0.1或者localhost访问demo。</p>
+        <p>demo提供了在线编辑，转换的示例。只要是onlyoffice支持的类型</p>
+        <p>demo中正文和历史文件都放在了一起，具体使用时按自己的业务进行区分，分表或加字段进行区分。</p>
+    </div>
+</div>
+<div>
+
+</div>
+
+<table class="layui-hide" id="fileTable" lay-skin="line" lay-even lay-filter="fileTable"></table>
+
+
+<script th:inline="javascript">
+    // var meId = /*[[${meId}]]*/ 'Sebastian';
+    $(function () {
+        upload.render({
+            elem: '.demo-class-accept', // 绑定多个元素
+            url: '/files/upload', // 此处配置你自己的上传接口即可
+            accept: 'file', // 普通文件
+            done: function(res){
+                layer.msg(res.message,function (){
+                    fileTable.reload("fileTable");
+                })
+            },
+            error:function (){
+                layer.msg("上传失败")
+            }
+        });
+    })
+
+</script>
+</body>
+</html>

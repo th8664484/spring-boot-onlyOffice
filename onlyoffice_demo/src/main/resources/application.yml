@@ -1,0 +1,51 @@
+server:
+  port: 9091
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+  thymeleaf:
+    cache: false
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    content-type: text/html
+    mode: HTML5
+    servlet:
+      content-type: text/html
+  #配置静态资源
+  mvc:
+    static-path-pattern: /**
+  resource:
+    static-locations: classpath:/static/**
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: 123456
+
+
+mybatis-plus:
+  #  global-config:
+  #    db-config:
+  #      table-prefix: t_
+  mapper-locations:  classpath:mappers/*.xml
+
+logging:
+  level:
+    com: debug
+
+office:
+  type: oo   # wps / oo:onlyoffice
+  dowload-file: http://172.18.64.1:9090/download/  #http://ip:prot(域名)/xxxx/download/{id}，{id}在程序中动态拼接上的
+  localhost-address: http://172.18.64.1:9090  #本应用的地址
+  hist-num:       #历史文件数量超出 则进行删除 有需要则填写
+  max-size:       #单位 MB 限制单个文件打开时的大小 默认20MB
+  timeout: 300000
+  oo:
+    secret:  #onlyoffice服务 开启了jwt校验 填写
+    doc-service: http://172.18.64.1:9001  #onlyoffice服务的地址
+    call-back-url: /onlyOffice/save        # oo回调接口

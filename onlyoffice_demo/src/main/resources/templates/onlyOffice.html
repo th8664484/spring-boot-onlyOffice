@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/_fragments :: head(~{::title})">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title th:text="${document.title}"></title>
+</head>
+
+<style>
+    html {
+        height: 100%;
+        width: 100%;
+    }
+    body {
+        background: #fff;
+        color: #333;
+        font-family: Arial, Tahoma,sans-serif;
+        font-size: 12px;
+        font-weight: normal;
+        height: 100%;
+        margin: 0;
+        overflow-y: hidden;
+        padding: 0;
+        text-decoration: none;
+    }
+
+    .Iframe {
+        height: 94%;
+    }
+</style>
+<script th:src="@{/js/onlyOffice.js}"></script>
+<script type="text/javascript" th:src="@{/js/self-ajax.js}"></script>
+<script type="text/javascript" th:src="${docServiceApiUrl}"></script>
+<script type="text/javascript" th:inline="javascript">
+    let documentChangeFlag = false;
+    let docEditor = '';
+    let histArray = [[${history}]];
+    let id = [[${id}]] ;
+    let fileExt = [[${document.fileType}]] ;
+
+    var obj = {
+        //获取内容
+        getText: function (){
+            docEditor.serviceCommand("getText", {});
+        },
+        //添加内容
+        setText: function (){
+            layer.prompt({title: '请输入文本'}, function(value, index, elem){
+                if(value === '') return elem.focus();
+                let data = {
+                    text: value
+                };
+                docEditor.serviceCommand("insertText", data);
+                // 关闭 prompt
+                layer.close(index);
+            });
+        },
+        // 收到消息处理
+        postMessage: function (res) {
+            if (typeof res.data === 'string') {
+                let data = JSON.parse(res.data)
+
+                if (data.command == 'insertText' || data.command == 'getText'){
+                    console.log("text:"+data.text)
+                    if (data.sheetName) {
+                        console.log("sheetName:"+data.sheetName)
+                    }
+                    if (data.command == 'insertText' && data.x != null && data.y != null) {
+                        console.log("x:"+data.x)
+                        console.log("y:"+data.y)
+                    }
+                    layer.alert("接收结果："+res.data);
+                }
+            }
+        },
+        init: function (){
+            let config = {
+                width: "100%",
+                height: "100%",
+                type: [[${type}]],
+                token: [[${token}]],
+                documentType: [[${documentType}]],
+                document: [[${document}]],
+                editorConfig: [[${editorConfig}]],
+                // https://api.onlyoffice.com/editors/config/events
+                events: {
+                    "onAppReady": onReady,//-将应用程序加载到浏览器时调用的函数。
+                    "onDocumentStateChange": onDocumentStateChange,//文档改变后的回调
+                    'onRequestEditRights': onRequestEditRights,
+                    "onError": onError,//发生错误或其他一些特定事件。
+                    "onOutdatedVersion": onOutdatedVersion,
+                    "onRequestHistory": onRequestHistory,
+                    // "onRequestHistoryClose": histArray != null?onRequestHistoryClose:'',//
+                    // "onRequestHistoryData": histArray != null?onRequestHistoryData:'',
+                    // "onRequestInsertImage": onRequestInsertImage,//
+                    //"onRequestMailMergeRecipients": onRequestMailMergeRecipients,//当用户尝试通过单击邮件合并按钮选择收件人数据时调用的函数。 若要选择收件人数据，必须调用setMailMergeRecipients方法。 如果未声明该方法，则“邮件合并”按钮将变淡且不可单击。
+                    //"onRequestRename": onRequestRename,// 当用户尝试通过单击重命名来重命名文件时调用的函数...按钮。
+                    //onRequestRestore - 当用户尝试通过单击版本历史记录中的“还原”按钮来还原文件版本时调用的函数。 调用该函数时，必须调用refreshHistory方法以再次初始化版本历史记录。 如果为历史记录中的文档版本调用文档版本号，则会在data.version参数中发送文档版本号。 此外，如果为历史记录对象的文档更改调用文档链接，则会在data.url参数中发送文档链接。 使用此链接指定的文档类型在data.fileType参数中发送。 如果未声明该方法，则不会显示“还原”按钮。
+                    // "onRequestSaveAs": onRequestSaveAs,//
+                    //"onRequestSendNotify": onRequestSendNotify,//在注释中提到用户时调用的函数。 要提及的用户列表应通过setUsers方法完成。 消息和电子邮件列表在数据参数中发送。 注释数据在data.actionLink参数中接收，然后必须在配置中用作editorConfig.actionLink参数的值。
+                    //"onRequestSharingSettings": onRequestSharingSettings,//当用户尝试通过单击更改访问权限按钮来管理文档访问权限时调用的函数。 更改访问权限时，必须调用setSharingSettings方法来更新有关允许与其他用户共享文档的设置的信息。 如果未声明该方法，则不会显示“更改访问权限”按钮。
+                    //"onRequestUsers": onRequestUsers,//当评论者可以选择其他用户在评论中提及时调用的函数。 若要设置用户列表，必须调用setUsers方法。
+                    //"onWarning": onWarning,//发生警告时调用的函数。 警告消息在数据参数中发送。
+                    //"onCollaborativeChanges": onCollaborativeChanges,//当其他用户在严格的共同编辑模式下共同编辑文档时调用的函数。
+                    //"onDownloadAs": onDownloadAs,//调用downloadAs方法时使用编辑文件的绝对 URL 调用的函数
+                    //"onInfo": onInfo,//应用程序打开文件时调用的函数。 模式在data.mode参数中发送。
+                    "onMetaChange": onMetaChange,//
+                    //"onMakeActionLink": onMakeActionLink,当用户尝试获取链接以打开包含书签的文档时调用的函数，滚动到书签位置。 若要设置书签链接，必须调用setActionLink方法。 书签数据在数据参数中接收，然后必须在配置中用作editorConfig.actionLink参数的值。 如果未声明该方法，则不会显示“获取链接”按钮。
+                    //"onPluginsReady": onPluginsReady,//加载所有插件并可以使用时调用的函数。
+                    // "onRequestClose": onRequestClose,//当必须结束编辑器的工作并且必须关闭编辑器时调用的函数。
+                    //"onRequestCompareFile": onRequestCompareFile,//当用户尝试通过单击“存储中的文档”按钮选择要比较的文档时调用的函数。 若要选择要比较的文档，必须调用setRevisedFile方法。 如果未声明该方法，则不会显示“来自存储的文档”按钮。*- 仅适用于 ONLYOFFICE 企业版和 ONLYOFFICE 开发者版
+                    //"onRequestCreateNew": onRequestCreateNew,//当用户尝试通过单击“新建”按钮创建文档时调用的函数。 此方法代替createUrl字段。 如果未声明该方法且未指定createUrl，则不会显示“新建”按钮。
+                }
+            }
+            console.log(config)
+            // 配置信息
+            docEditor = new DocsAPI.DocEditor("iFrameEditor",config );
+        }
+    }
+
+
+/*    if (window.addEventListener) {
+        window.addEventListener("load", connectEditor);
+        //接收 编辑器的数据
+        window.addEventListener('message', this.getSocketData)
+    } else if (window.attachEvent) {
+        window.attachEvent("load", connectEditor);
+    }*/
+
+    $(function () {
+        obj.init()
+
+        //接收 编辑器的数据
+        window.addEventListener('message', obj.postMessage)
+
+        $(document).on('click','button', function () {
+            var id = $(this).attr('id');
+
+            if(id == "getText"){
+                obj.getText()
+            }else if(id == "setText"){
+                obj.setText()
+            }
+        });
+    })
+</script>
+<body>
+<div class="layui-btn-container">
+    <button type="button" class="layui-btn" id="getText">获取文本</button>
+    <button type="button" class="layui-btn" id="setText">插入文本</button>
+</div>
+<!--startpart-->
+<div class="Iframe" style="z-index: -1">
+    <div id="iFrameEditor"></div>
+</div>
+</body>
+</html>

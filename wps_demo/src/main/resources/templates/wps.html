@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/_fragments :: head(~{::title})">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>wps</title>
+</head>
+
+<style>
+    html {
+        height: 100%;
+        width: 100%;
+    }
+    body {
+        background: #fff;
+        color: #333;
+        font-family: Arial, Tahoma,sans-serif;
+        font-size: 12px;
+        font-weight: normal;
+        height: 100%;
+        margin: 0;
+        overflow-y: hidden;
+        padding: 0;
+        text-decoration: none;
+    }
+
+    .Iframe {
+        height: 94%;
+    }
+</style>
+<script type="text/javascript" th:src="@{/js/self-ajax.js}"></script>
+<script type="text/javascript" th:src="@{/js/web-office-sdk-v1.1.19.umd.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+    let link = [[${link}]];
+
+    //https://wwo.wps.cn/docs/front-end/
+    window.onload = function() {
+        const jssdk = WebOfficeSDK.config({
+            url: link, // 该地址需要对接方服务端提供，形如 https://wwo.wps.cn/office/p/xxx
+            mount: document.querySelector('#iFrameEditor'),
+        })
+    }
+</script>
+<body>
+
+<!--startpart-->
+<div class="Iframe" style="z-index: -1">
+    <div id="iFrameEditor"></div>
+</div>
+</body>
+</html>

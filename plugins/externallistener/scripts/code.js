@@ -79,18 +79,6 @@
 						window.parent.parent.postMessage(localStorage.getItem('dataInfo'),'*');
 						localStorage.removeItem('dataInfo')
 					});
-					/*		window.Asc.plugin.executeMethod ("GetSelectedText", [{"Numbering": false, "Math": false, "TableCellSeparator": '\n', "ParaSeparator": '\n', "TabSymbol": String.fromCharCode(9)}], function (e) {
-                                let text = e.trim()
-                                console.log(text)
-                                data.text = text
-                                if (text == '') {
-                                    text = text.replace (/\t/g, '\n');
-                                    window.parent.parent.postMessage(JSON.stringify(data),'*');
-                                }
-                                else {
-
-                                }
-                            });*/
 					break;
 				}
 			}
