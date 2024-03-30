@@ -8,7 +8,7 @@
 ## 前言： <!-- {docsify-ignore} -->
 - [在线文档：https://www.xenosp.cn/docs/](https://www.xenosp.cn/docs/)
 
-- 注：该工具和业务紧密相关。需要自己对接工具（wps正在对接测试中...）
+- 注：该工具和业务紧密相关。需要自己对接工具
 
 -  如果解决了你的问题，点个 star 鼓励一下吧！
 -  [office-spring-boot-starter 源码](https://gitee.com/th8664484/office-spring-boot-starter) 
@@ -28,7 +28,7 @@
 <dependency>
     <groupId>cn.xenosp</groupId>
     <artifactId>office-spring-boot-starter</artifactId>
-    <version>0.0.2</version>
+    <version>1.0.3</version>
 </dependency>
 ```
 
