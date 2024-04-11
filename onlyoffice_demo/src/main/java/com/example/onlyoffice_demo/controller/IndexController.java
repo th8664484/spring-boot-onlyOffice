@@ -177,7 +177,7 @@ public class IndexController {
             JSONObject jsonObject = JSONUtil.toBean(body,JSONObject.class);
             log.info("{}", jsonObject);
 
-            fileService.documentSave(jsonObject);
+            onlyOfficeAPI.documentSave(jsonObject);
         } catch (Exception e) {
             e.printStackTrace();
             writer.write("{\"error\":-1}");
