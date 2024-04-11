@@ -80,11 +80,11 @@ public class FileService {
 
                 log.info("保存文件结束");
                 SecurityUtils.removeUserSession();
-            } else if (0 == status || 2 == status || 4 == status) {
+            } else if (0 == status || 2 == status || 4 == status || 3 == status) {
                 onlyOfficeAPI.close(jsonObject);
-            } else if (3 == status || 7 == status) {
+            } else if (7 == status) {
                 //保存文档错误
-                onlyOfficeAPI.close(jsonObject);
+               log.error("【{}】====={}",status,"强制保存失败");
             } else if (1 == status) {
                 //文件服务的回调  获取key判断当前文档有多少人在这使用
                 List<Map> actions = jsonObject.getBeanList("actions", Map.class);
