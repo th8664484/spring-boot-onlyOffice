@@ -28,7 +28,7 @@
 <dependency>
     <groupId>cn.xenosp</groupId>
     <artifactId>office-spring-boot-starter</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
 </dependency>
 ```
 
@@ -57,6 +57,7 @@ office:
 
 ## 更新记录
 
+- [x] 添加缓存自定义实现 2024/04/26
 - [x] 修复报错，优化代码 2024/04/11
 - [x] wps对接完成 2024/03/30
 - [x] 优化为spring-boot-starter调用，并发布 2024/03/01
